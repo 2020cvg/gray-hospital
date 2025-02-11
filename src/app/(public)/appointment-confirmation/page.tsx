@@ -5,24 +5,35 @@ import { getAppointmentById } from "@/server-actions/appointments";
 import { Button, Input, message } from "antd";
 import React, { useEffect, useRef } from "react";
 import AppointmentReceipt from "./_components/appointment-receipt";
-import { useReactToPrint } from "react-to-print";
 import { useSearchParams } from "next/navigation";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 function AppointmentConfirmation() {
   const searchParams = useSearchParams();
-
-  const [appointmentId, setAppointmentId] = React.useState(
-    searchParams.get("id") || ""
-  );
+  const [appointmentId, setAppointmentId] = React.useState(searchParams.get("id") || "");
   const [loading, setLoading] = React.useState(false);
-  const [appointment, setAppointment] = React.useState<IAppointment | null>(
-    null
-  );
+  const [appointment, setAppointment] = React.useState<IAppointment | null>(null);
   const componentRef: any = useRef();
 
-  const handlePrint: any = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  const handleDownload = async () => {
+    if (!appointment) {
+      message.error("No appointment to download");
+      return;
+    }
+  
+    const element = componentRef.current;
+    const canvas = await html2canvas(element);
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+  
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+  
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save(`AppointmentConfirmation_${appointmentId}.pdf`);
+  };  
+
   const getData = async () => {
     try {
       setLoading(true);
@@ -73,10 +84,11 @@ function AppointmentConfirmation() {
           {appointment && <AppointmentReceipt appointment={appointment!} />}
         </div>
       </div>
+
       {appointment && (
         <div className="flex justify-end gap-5 w-[600px]">
-          <Button>Download</Button>
-          <Button type="primary" onClick={handlePrint}>
+          <Button onClick={handleDownload}>Download</Button>
+          <Button type="primary" onClick={() => window.print()}>
             Print
           </Button>
         </div>
