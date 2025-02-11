@@ -3,20 +3,22 @@ import PageTitle from "@/components/page-title";
 import { IAppointment } from "@/interfaces";
 import { getAppointmentById } from "@/server-actions/appointments";
 import { Button, Input, message } from "antd";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AppointmentReceipt from "./_components/appointment-receipt";
 import { useSearchParams } from "next/navigation";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 
 function AppointmentConfirmation() {
   const searchParams = useSearchParams();
-  const [appointmentId, setAppointmentId] = React.useState(searchParams.get("id") || "");
-  const [loading, setLoading] = React.useState(false);
-  const [appointment, setAppointment] = React.useState<IAppointment | null>(null);
+  const [appointmentId, setAppointmentId] = useState(searchParams.get("id") || "");
+  const [loading, setLoading] = useState(false);
+  const [appointment, setAppointment] = useState<IAppointment | null>(null);
   const componentRef: any = useRef();
 
   const handleDownload = async () => {
+    if (typeof window === "undefined") return; // Ensure this only runs on the client
+    const html2canvas = (await import("html2canvas")).default;
+    const jsPDF = (await import("jspdf")).default; // Correct way to get the default export
+  
     if (!appointment) {
       message.error("No appointment to download");
       return;

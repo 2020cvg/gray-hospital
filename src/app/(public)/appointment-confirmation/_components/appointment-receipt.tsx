@@ -18,11 +18,11 @@ function AppointmentReceipt({ appointment }: IAppointmentReceiptProps) {
     <div className="w-full">
       <div className="p-5 border border-primary rounded-sm flex flex-col">
         <div className="flex justify-between items-center">
-          <h1 className="font-bold text-2xl text-pretty uppercase">SHEY-HOSPITAL</h1>
+          <h1 className="font-bold text-2xl text-pretty uppercase">GRAY-HOSPITAL</h1>
 
           <div className="text-sm">
-            <p>Hyderabad , Telangana</p>
-            <p>+91 1234567890</p>
+            <p>Los Angeles, California</p>
+            <p>8007895523</p>
           </div>
         </div>
 
