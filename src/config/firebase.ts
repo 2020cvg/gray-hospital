@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDxvnKoqiN_axrY8iZd4NZzegMmR_IoVUY",
-  authDomain: "gray-hospital.firebaseapp.com",
-  projectId: "gray-hospital",
-  storageBucket: "gray-hospital.firebasestorage.app",
-  messagingSenderId: "465694166905",
-  appId: "1:465694166905:web:29745469587c9b5f2be9a8",
-  measurementId: "G-HD7KRBZQCX"
+  apiKey: "AIzaSyC6YwRlm4b8XZgp8I5DickMULUIJc5Hv5Q",
+  authDomain: "shey-hospital-n.firebaseapp.com",
+  projectId: "shey-hospital-n",
+  storageBucket: "shey-hospital-n.appspot.com",
+  messagingSenderId: "850100876158",
+  appId: "1:850100876158:web:a3f51af4549b5a3333392f",
+  measurementId: "G-8GK7HPC6RQ",
 };
 
 // Initialize Firebase

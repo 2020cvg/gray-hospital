@@ -52,7 +52,7 @@ function PrivateLayout({ children }: { children: React.ReactNode }) {
     <div>
       <div className="flex justify-between items-center py-5 px-10 bg-primary">
         <Link className="text-white text-2xl font-bold" href="/admin/dashboard">
-          GRAY-HOSPITAL
+          SHEY-HOSPITAL
         </Link>
         <div className="flex gap-5 items-center">
           <span className="text-white text-sm uppercase">
